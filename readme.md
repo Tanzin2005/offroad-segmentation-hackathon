@@ -1,17 +1,20 @@
 # Duality AI Offroad Semantic Segmentation - Hackathon Submission
 
-## 📋 Project Overview
+
+
+
+##  Project Overview
 
 This repository contains our complete submission for the Duality AI Offroad Autonomy Segmentation Challenge. We developed a semantic segmentation model using DINOv2 backbone with a ConvNeXt-style segmentation head, achieving test IoU of **0.232** through systematic iterative optimization.
 
-## 🏆 Final Results
+##  Final Results
 
 - **Validation IoU**: 0.355
 - **Test IoU**: 0.232
 - **Best Val Dice Score**: 0.509
 - **Pixel Accuracy**: 72.92%
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 project/
@@ -31,7 +34,7 @@ project/
     └── Train Dice and Validation Dice vs Epoch/
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -51,6 +54,7 @@ conda activate segmentation
 ```bash
 cd code
 pip install -r requirements.txt
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 ```
 
 ### Dataset Setup
@@ -71,7 +75,7 @@ Offroad_Segmentation_Training_Dataset/
 
 Place the dataset folder in the parent directory of this project.
 
-## 🎯 Usage
+##  Usage
 
 ### Training
 
@@ -113,7 +117,7 @@ python test_segmentation.py
 python inference.py --image path/to/image.png --model segmentation_head.pth
 ```
 
-## 🧪 Model Architecture
+##  Model Architecture
 
 **Backbone**: DINOv2-small
 - Pre-trained Vision Transformer
@@ -126,7 +130,7 @@ python inference.py --image path/to/image.png --model segmentation_head.pth
 - Classifier: 1×1 conv to 10 classes
 - Bilinear upsampling to original resolution
 
-## 📊 Optimization Journey
+##  Optimization Journey
 
 Our systematic approach improved validation IoU from **0.294 → 0.355**:
 
@@ -142,19 +146,19 @@ Our systematic approach improved validation IoU from **0.294 → 0.355**:
 - Change: Added CosineAnnealingLR
 - Result: Smoother convergence, final val IoU 0.355
 
-## 🔬 Augmentation Experiments
+##  Augmentation Experiments
 
 We tested aggressive augmentation to address the validation-test gap (0.355 → 0.232):
 
 | Strategy | Augmentation | Test IoU | Change |
 |----------|-------------|----------|--------|
 | **Baseline** | Standard | **0.232** | Baseline |
-| Aggressive | ColorJitter(0.5), Blur, Grayscale, Rotation(20°) | 0.163 | -30% ❌ |
-| Moderate | ColorJitter(0.3), Rotation(10°) | 0.176 | -24% ❌ |
+| Aggressive | ColorJitter(0.5), Blur, Grayscale, Rotation(20°) | 0.163 | -30%  |
+| Moderate | ColorJitter(0.3), Rotation(10°) | 0.176 | -24%  |
 
 **Key Finding**: Aggressive augmentation degraded performance by destroying domain-specific features (desert color palette). We submit the baseline model.
 
-## 📈 Per-Class Performance
+##  Per-Class Performance
 
 | Class | Training % | Test IoU |
 |-------|-----------|----------|
@@ -170,14 +174,14 @@ We tested aggressive augmentation to address the validation-test gap (0.355 → 
 
 **Pattern**: Strong on large, color-consistent classes (Sky, Landscape). Struggles with small, texture-heavy objects (Trees, Bushes, Logs).
 
-## 🧠 Key Learnings
+##  Key Learnings
 
 1. **Optimizer matters**: AdamW gave +0.043 IoU over SGD for transformer backbones
 2. **Domain shift is real**: 34% val-test gap despite both being desert environments
 3. **Augmentation can harm**: Destroyed domain-specific features when too aggressive
 4. **Systematic experimentation**: Understanding failures is as valuable as successes
 
-## 📖 Report
+##  Report
 
 Complete documentation available in `report/report.docx`:
 - Iterative optimization process
@@ -186,7 +190,7 @@ Complete documentation available in `report/report.docx`:
 - Training curves and visualizations
 - Lessons learned and future work
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 **Out of memory during training**:
 - Reduce batch size in `train_segmentation.py`
@@ -201,7 +205,7 @@ Complete documentation available in `report/report.docx`:
 - Verify dataset path in scripts
 - Check folder structure matches expected layout
 
-## 💡 Future Improvements
+##  Future Improvements
 
 1. **Domain-adaptive augmentation**: Preserve color palette, vary lighting
 2. **Multi-scale features**: Better small object detection
@@ -209,13 +213,13 @@ Complete documentation available in `report/report.docx`:
 4. **Class-specific strategies**: Different augmentation per class
 5. **Progressive training**: Start minimal, gradually increase augmentation
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Duality AI** for organizing the hackathon and providing synthetic data
 - **Facebook Research** for DINOv2 backbone
 - **Challenge dataset** generated using FalconCloud digital twin platform
 
-## 📝 Citation
+##  Citation
 
 If using this code, please cite:
 
@@ -225,11 +229,7 @@ Model: DINOv2-small + ConvNeXt Segmentation Head
 Final Test IoU: 0.232
 ```
 
-## 📞 Contact
 
-For questions about this submission, please reach out via the Duality AI Discord channel.
-
----
 
 **Competition**: Duality AI Offroad Autonomy Segmentation Challenge  
 **Date**: February 2026  
